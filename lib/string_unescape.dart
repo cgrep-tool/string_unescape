@@ -46,7 +46,7 @@ String unescape(String input) {
         }
         if (input[0] != '{') {
           String digit = input.substring(0, 4);
-          int intDigit = int.tryParse(digit, radix: 16);
+          int? intDigit = int.tryParse(digit, radix: 16);
           if (intDigit == null || intDigit < 0) {
             break;
           }
@@ -58,8 +58,8 @@ String unescape(String input) {
             break;
           } else {
             input = input.substring(match.end);
-            String digit = match[1];
-            int intDigit = int.tryParse(digit, radix: 16);
+            String digit = match[1]!;
+            int? intDigit = int.tryParse(digit, radix: 16);
             if (intDigit == null || intDigit < 0) {
               break;
             }
@@ -74,7 +74,7 @@ String unescape(String input) {
         }
         String digit = input.substring(0, 2);
         input = input.substring(2);
-        int intDigit = int.tryParse(digit, radix: 16);
+        int? intDigit = int.tryParse(digit, radix: 16);
         if (intDigit == null || intDigit < 0) {
           break;
         }
@@ -89,7 +89,7 @@ String unescape(String input) {
   return sb.toString();
 }
 
-int unescapeChar(String input) {
+int? unescapeChar(String input) {
   String unescaped = unescape(input);
   if (unescaped.runes.length > 1) throw FormatException("Found mutliple characters ${unescaped.runes.length}!");
   if (unescaped.runes.isEmpty) return null;
